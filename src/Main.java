@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         Bus bus1 = new Bus(10, 50, "Астана1 - Әуежай");
-        Bus bus2 = new Bus(26, 40, "Бағыстан ТК - Конституция көшесі");
+        Bus bus2 = new Bus(26, 45, "Бағыстан ТК - Конституция көшесі");
         Bus bus3 = new Bus(15, 40, "ЖК Арнау - ж|м Железнодорожный");
 
         Commuter commuter1 = new Commuter("Темірлан", 18, true);
