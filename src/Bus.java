@@ -32,8 +32,8 @@ public class Bus {
 
     public void info() {
         System.out.println("Автобус нөмірі: " + busNumber +"\n"
-                + ", Сыйымдылығы: " + capacity + "\n"
-                + ", Жүру бағыты: " + route);
+                + "Сыйымдылығы: " + capacity + "\n"
+                + "Жүру бағыты: " + route);
     }
 }
 

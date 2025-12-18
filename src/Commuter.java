@@ -40,6 +40,6 @@ public class Commuter {
     }
 
     public void info() {
-        System.out.println("Жолаушы есімі: " + name + "\n" + ", Жасы: " + age + "\n" + ", Билеті: " + ticketStatus());
+        System.out.println("Жолаушы есімі: " + name + "\n" + "Жасы: " + age + "\n" + "Билеті: " + ticketStatus());
     }
 }
