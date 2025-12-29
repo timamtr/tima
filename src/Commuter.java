@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Commuter {
     private String name;
     private int age;
@@ -9,37 +11,31 @@ public class Commuter {
         this.hasTicket = hasTicket;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+
+    public boolean isHasTicket() { return hasTicket; }
+    public void setHasTicket(boolean hasTicket) { this.hasTicket = hasTicket; }
+
+    @Override
+    public String toString() {
+        return String.format("Passenger: %s, Age: %d, Ticket: %s",
+                name, age, (hasTicket ? "Yes" : "No"));
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-    public int getAge() {
-        return age;
-    }
-
-    public void setHasTicket(boolean hasTicket) {
-        this.hasTicket = hasTicket;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Commuter commuter = (Commuter) o;
+        return age == commuter.age && Objects.equals(name, commuter.name);
     }
 
-    public boolean isHasTicket() {
-        return hasTicket;
-    }
-
-    public String ticketStatus() {
-        if (hasTicket) {
-            return "бар";
-        } else {
-            return "жоқ";
-        }
-    }
-
-    public void info() {
-        System.out.println("Жолаушы есімі: " + name + "\n" + "Жасы: " + age + "\n" + "Билеті: " + ticketStatus());
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
     }
 }

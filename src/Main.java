@@ -1,33 +1,19 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        TransportService cts = new TransportService("City Transportation Systems");
 
-        Bus bus1 = new Bus(10, 50, "Астана1 - Әуежай");
-        Bus bus2 = new Bus(26, 45, "Бағыстан ТК - Конституция көшесі");
-        Bus bus3 = new Bus(15, 40, "ЖК Арнау - ж|м Железнодорожный");
+        cts.addVehicle(new Bus(10, 50, "Astana1 - Airport"));
+        cts.addVehicle(new ExpressBus(502, 45, "Bagystan TK - Astana1"));
+        cts.addVehicle(new Bus(15, 60, "Arnau TK - Zheleznodorozhnyi"));
 
-        Commuter commuter1 = new Commuter("Темірлан", 18, true);
-        Commuter commuter2 = new Commuter("Санжар", 17, false);
+        cts.showFleet();
 
-        TransportService transportService1 = new TransportService("ТОО City Transportation Systems");
+        cts.sortByCapacity();
+        cts.showFleet();
 
-        bus1.info();
-        bus2.info();
-        bus3.info();
+        System.out.println("\nSearch result №10 " + cts.findById(10));
 
-        commuter1.info();
-        commuter2.info();
-
-        transportService1.info();
-
-        System.out.println("Объект жасалды!");
-        if (commuter1.getAge() > commuter2.getAge()) {
-            System.out.println("1-ші жолаушының жасы үлкен");
-        } else if (commuter1.getAge() == commuter2.getAge()) {
-            System.out.println("Екі жолаушының жасы бірдей");
-        } else {
-            System.out.println("2-ші жолаушының жасы үлкен");
-        }
+        System.out.println("\nExpress routes only:");
+        cts.getOnlyExpress().forEach(System.out::println);
     }
 }
