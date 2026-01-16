@@ -1,19 +1,18 @@
 public class Main {
     public static void main(String[] args) {
-        TransportService cts = new TransportService("City Transportation Systems");
+        DatabaseManager db = new DatabaseManager();
 
-        cts.addVehicle(new Bus(10, 50, "Astana1 - Airport"));
-        cts.addVehicle(new ExpressBus(502, 45, "Bagystan TK - Astana1"));
-        cts.addVehicle(new Bus(15, 60, "Arnau TK - Zheleznodorozhnyi"));
 
-        cts.showFleet();
+        db.addTransport(10, 50, "Astana1 - Airport", "Bus");
+        db.addTransport(502, 45, "Bagystan TK - Astana1", "ExpressBus");
+        db.addTransport(15, 60, "Arnau TK - Zheleznodorozhnyi", "Bus");
 
-        cts.sortByCapacity();
-        cts.showFleet();
+        db.addCommuter("Tima", 18, true);
+        db.addCommuter("Sanzhar", 17, false);
 
-        System.out.println("\nSearch result №10 " + cts.findById(10));
+        System.out.println("Succesfull");
 
-        System.out.println("\nExpress routes only:");
-        cts.getOnlyExpress().forEach(System.out::println);
+
+        db.getAllTransports();
     }
 }
