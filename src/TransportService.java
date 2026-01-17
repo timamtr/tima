@@ -5,6 +5,10 @@ public class TransportService {
     private String companyName;
     private List<Transport> fleet = new ArrayList<>(); // Наш пул данных
 
+    public List<Transport> getFleet() {
+        return fleet;
+    }
+
     public TransportService(String companyName) {
         this.companyName = companyName;
     }
