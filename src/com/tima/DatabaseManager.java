@@ -1,3 +1,5 @@
+package com.tima;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +9,14 @@ public class DatabaseManager {
     private static final String USER = "postgres";
     private static final String PASSWORD = "timka007";
 
-    public Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
 
+    public Connection connect() throws SQLException {
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            throw new SQLException("Database connection error", e);
+        }
+    }
 
     public List<Transport> getTransportsFromDB() {
         List<Transport> list = new ArrayList<>();

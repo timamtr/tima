@@ -1,3 +1,5 @@
+package com.tima;
+
 import java.util.Objects;
 
 public class Commuter {
