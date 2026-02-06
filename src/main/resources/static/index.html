@@ -75,7 +75,7 @@
                 const tbody = document.querySelector("#transportTable tbody");
                 tbody.innerHTML = "";
                 data.forEach(t => {
-                    // Проверяем имя поля типа (transportType или type)
+
                     const type = t.transportType || t.type || "Bus";
 
                     const row = `

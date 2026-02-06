@@ -9,7 +9,6 @@ public class TransportController {
 
     private final DatabaseManager db = new DatabaseManager();
 
-
     @GetMapping
     public List<Transport> getTransports() {
         return db.getTransportsFromDB();
