@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Transport Manager</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+
+
+        .form-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; gap: 10px; align-items: end; }
+        .input-group { display: flex; flex-direction: column; }
+        input, select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+
+
+        .btn { padding: 10px 20px; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-add { background: #28a745; }
+        .btn-del { background: #dc3545; padding: 5px 10px; font-size: 12px;}
+        .btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚌 Transport Management System</h1>
+
+    <div class="form-box">
+        <div class="input-group">
+            <label>Type</label>
+            <select id="newType">
+                <option value="Bus">Regular Bus</option>
+                <option value="ExpressBus">Express Bus</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Route</label>
+            <input type="text" id="newRoute" placeholder="e.g. 55A">
+        </div>
+        <div class="input-group">
+            <label>Capacity</label>
+            <input type="number" id="newCapacity" placeholder="e.g. 50">
+        </div>
+        <button onclick="createTransport()" class="btn btn-add">Add Bus</button>
+    </div>
+
+    <table id="transportTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Route</th>
+            <th>Capacity</th>
+            <th>Action</th> </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    const API_URL = '/api/transports';
+
+    document.addEventListener("DOMContentLoaded", loadData);
+
+
+    function loadData() {
+        fetch(API_URL)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector("#transportTable tbody");
+                tbody.innerHTML = "";
+                data.forEach(t => {
+                    // Проверяем имя поля типа (transportType или type)
+                    const type = t.transportType || t.type || "Bus";
+
+                    const row = `
+                        <tr>
+                            <td>${t.id}</td>
+                            <td>${type}</td>
+                            <td>${t.route}</td>
+                            <td>${t.capacity}</td>
+                            <td>
+                                <button onclick="deleteTransport(${t.id})" class="btn btn-del">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            });
+    }
+
+    function createTransport() {
+        const type = document.getElementById('newType').value;
+        const route = document.getElementById('newRoute').value;
+        const capacity = document.getElementById('newCapacity').value;
+
+        fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: type, route: route, capacity: parseInt(capacity) })
+        }).then(() => {
+            loadData();
+            document.getElementById('newRoute').value = ''; // Очищаем поле
+            document.getElementById('newCapacity').value = '';
+        });
+    }
+
+
+    function deleteTransport(id) {
+        if(!confirm("Are you sure you want to delete Bus ID " + id + "?")) return;
+
+        fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        }).then(() => loadData());
+    }
+</script>
+
+</body>
+</html>

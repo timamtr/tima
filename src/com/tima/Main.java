@@ -1,5 +1,4 @@
 package com.tima;
-
 import java.util.Scanner;
 import java.util.List;
 
